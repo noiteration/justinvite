@@ -28,7 +28,19 @@ class InvitationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $invitation = Invitation::createInvite(
+            $request->email,
+            auth()->id()
+        );
+
+        return response()->json([
+            'message' => 'Sent Invitation Successfully',
+            'token' => $invitation->token
+        ], 201);
     }
 
     /**
