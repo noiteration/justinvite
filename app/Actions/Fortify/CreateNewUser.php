@@ -41,10 +41,8 @@ class CreateNewUser implements CreatesNewUsers
                 'token' => ['Invalid or expired invitation token.']
             ]);
         }
-
-        $invitation->update([
-            'accepted_at' => now()
-        ]);
+        $invitation->accepted_at = now();
+        $invitation->save();
 
         return User::create([
             'name' => $input['name'],
