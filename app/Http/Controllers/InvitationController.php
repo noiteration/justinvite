@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Invitation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\InviteEmail;
 
 class InvitationController extends Controller
 {
@@ -48,6 +50,8 @@ class InvitationController extends Controller
             $request->email,
             auth()->id()
         );
+
+        Mail::to($request->email)->send(new InviteEmail($invitation->token));
 
         return response()->json([
             'message' => 'Sent Invitation Successfully',
