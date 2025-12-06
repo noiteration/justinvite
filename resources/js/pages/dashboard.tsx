@@ -22,6 +22,11 @@ export default function Dashboard() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+    interface LaravelWindow extends Window {
+        Laravel?: {
+            csrfToken?: string;
+        };
+    }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setProcessing(true);
@@ -32,7 +37,7 @@ export default function Dashboard() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': (window as any).Laravel?.csrfToken || '',
+                    'X-CSRF-TOKEN': (window as LaravelWindow).Laravel?.csrfToken || '',
                 },
                 body: JSON.stringify({ email }),
             });
