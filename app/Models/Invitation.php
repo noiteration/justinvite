@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Invitation extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'email',
         'token',
         'invited_by',
-        'expires_at'
+        'expires_at',
+        'accepted_at',
     ];
 
     public function inviter()
